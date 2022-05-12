@@ -7,10 +7,11 @@ import sys
 try:
     from PyQt5.QtGui import QImage
 except ImportError:
-    from PyQt4.QtGui import QImage
+    # from PyQt4.QtGui import QImage #原始的
+    pass #修改后的
 
-
-imgFolderPath = sys.argv[1]
+# imgFolderPath = sys.argv[1] #原始的
+imgFolderPath = r'D:/新建文件夹' #修改后的,图片和YOLO txt以及classes.txt所在的文件夹
 
 # Search all yolo annotation (txt files) in this folder
 for file in os.listdir(imgFolderPath):
@@ -19,7 +20,17 @@ for file in os.listdir(imgFolderPath):
 
         annotation_no_txt = os.path.splitext(file)[0]
 
-        imagePath = os.path.join(imgFolderPath, annotation_no_txt + ".jpg")
+        imageName1 = os.path.join(imgFolderPath, annotation_no_txt + ".jpeg")
+        imageName2 = os.path.join(imgFolderPath, annotation_no_txt + ".jpg")
+        imageName3 = os.path.join(imgFolderPath, annotation_no_txt + ".png")
+        if os.path.exists(imageName1):
+            imagePath = imageName1
+        if os.path.exists(imageName2):
+            imagePath = imageName2
+        if os.path.exists(imageName3):
+            imagePath = imageName3
+
+        # imagePath = os.path.join(imgFolderPath, annotation_no_txt + ".jpg") #原始的
 
         print("Load this image:", imagePath)
 
